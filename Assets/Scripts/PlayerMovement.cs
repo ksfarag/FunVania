@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private float gravityScale;
     private Rigidbody2D ridgitBody;
     private bool isTouchingGround;
+    private CapsuleCollider2D BodyColider;
+    //private CircleCollider2D feetColider;
     private Animator animator;
 
     // Start is called before the first frame update
@@ -22,13 +24,15 @@ public class PlayerMovement : MonoBehaviour
     {
         ridgitBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        gravityScale = ridgitBody.gravityScale; 
+        gravityScale = ridgitBody.gravityScale;
+        BodyColider = GetComponent<CapsuleCollider2D>();
+        //feetColider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        isTouchingGround = GetComponent<CapsuleCollider2D>().IsTouchingLayers(LayerMask.GetMask("Ground")) || GetComponent<CapsuleCollider2D>().IsTouchingLayers(LayerMask.GetMask("Climbing"));
+        isTouchingGround = BodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")) || BodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
         animator.SetBool("isJumping", !isTouchingGround);
         Run();
         climbLadder();
@@ -41,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump(InputValue value) 
     {
-        if (GetComponent<Collider2D>().IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (BodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             ridgitBody.velocity += new Vector2(0, jumpDistance);
         }
@@ -65,13 +69,12 @@ public class PlayerMovement : MonoBehaviour
     }
     void climbLadder()
     {
-        if (GetComponent<Collider2D>().IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        if (BodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             ridgitBody.velocity = new Vector2(ridgitBody.velocity.x, moveInput.y * climbSpeed);
             ridgitBody.gravityScale = 0;
             bool isClimbing = Mathf.Abs(ridgitBody.velocity.y) > 0;
             animator.SetBool("isClimbing", isClimbing);
-            bool isTouchingGround = GetComponent<Collider2D>().IsTouchingLayers(LayerMask.GetMask("Ground"));
             animator.SetBool("isIdleClimbing", !isTouchingGround && !isClimbing);
         }
         else
