@@ -71,10 +71,14 @@ public class PlayerMovement : MonoBehaviour
             ridgitBody.gravityScale = 0;
             bool isClimbing = Mathf.Abs(ridgitBody.velocity.y) > 0;
             animator.SetBool("isClimbing", isClimbing);
+            bool isTouchingGround = GetComponent<Collider2D>().IsTouchingLayers(LayerMask.GetMask("Ground"));
+            animator.SetBool("isIdleClimbing", !isTouchingGround && !isClimbing);
         }
         else
         {
             ridgitBody.gravityScale = gravityScale;
+            animator.SetBool("isClimbing", false);
+            animator.SetBool("isIdleClimbing", false);
         }
 
     }
