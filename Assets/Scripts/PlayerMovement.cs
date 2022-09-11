@@ -13,18 +13,23 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float climbSpeed = 1;
     private float gravityScale;
-    private Rigidbody2D ridgitBody;
+    private Rigidbody2D rigidBody;
     private bool isTouchingGround;
     private CapsuleCollider2D BodyColider;
     //private CircleCollider2D feetColider;
     private Animator animator;
+    private bool isAlive = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        ridgitBody = GetComponent<Rigidbody2D>();
+        if (!isAlive) 
+        {
+            //Do something
+        }
+        rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        gravityScale = ridgitBody.gravityScale;
+        gravityScale = rigidBody.gravityScale;
         BodyColider = GetComponent<CapsuleCollider2D>();
         //feetColider = GetComponent<CircleCollider2D>();
     }
@@ -47,42 +52,46 @@ public class PlayerMovement : MonoBehaviour
     {
         if (BodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            ridgitBody.velocity += new Vector2(0, jumpDistance);
+            rigidBody.velocity += new Vector2(0, jumpDistance);
         }
     }
 
-    void Run() 
+    private void Run() 
     {
-        ridgitBody.velocity = new Vector2(moveInput.x * runSpeed, ridgitBody.velocity.y);
+        rigidBody.velocity = new Vector2(moveInput.x * runSpeed, rigidBody.velocity.y);
 
         // Flips the sprite according to movment direction
-        if (ridgitBody.velocity.x < 0)
+        if (rigidBody.velocity.x < 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
-        else if (ridgitBody.velocity.x > 0) 
+        else if (rigidBody.velocity.x > 0) 
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
-        bool isMoving = Mathf.Abs(ridgitBody.velocity.x) > 0;
+        bool isMoving = Mathf.Abs(rigidBody.velocity.x) > 0;
         animator.SetBool("isRunning", isMoving && isTouchingGround);
     }
-    void climbLadder()
+    private void climbLadder()
     {
         if (BodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
-            ridgitBody.velocity = new Vector2(ridgitBody.velocity.x, moveInput.y * climbSpeed);
-            ridgitBody.gravityScale = 0;
-            bool isClimbing = Mathf.Abs(ridgitBody.velocity.y) > 0;
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, moveInput.y * climbSpeed);
+            rigidBody.gravityScale = 0;
+            bool isClimbing = Mathf.Abs(rigidBody.velocity.y) > 0;
             animator.SetBool("isClimbing", isClimbing);
             animator.SetBool("isIdleClimbing", !isTouchingGround && !isClimbing);
         }
         else
         {
-            ridgitBody.gravityScale = gravityScale;
+            rigidBody.gravityScale = gravityScale;
             animator.SetBool("isClimbing", false);
             animator.SetBool("isIdleClimbing", false);
         }
 
+    }
+    private void Die()
+    {
+        //TO DO
     }
 }

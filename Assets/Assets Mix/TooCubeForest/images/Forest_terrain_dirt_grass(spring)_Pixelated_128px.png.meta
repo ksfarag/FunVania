@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: c3243c0bd9e831843b08e914337cc893
+guid: a3465df7934fee248bb3cd8e7c471362
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 21300000
-    second: Forest_terrain_dirt_grass(spring)_128px_0
-  - first:
-      213: 21300002
-    second: Forest_terrain_dirt_grass(spring)_128px_1
-  - first:
-      213: 21300004
-    second: Forest_terrain_dirt_grass(spring)_128px_2
-  - first:
-      213: 21300006
-    second: Forest_terrain_dirt_grass(spring)_128px_3
-  - first:
-      213: 21300008
-    second: Forest_terrain_dirt_grass(spring)_128px_4
-  - first:
-      213: 21300010
-    second: Forest_terrain_dirt_grass(spring)_128px_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -62,7 +44,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 128
@@ -80,12 +62,12 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
-    resizeAlgorithm: 1
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
@@ -106,18 +88,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
     buildTarget: Server
     maxTextureSize: 2048
@@ -146,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Forest_terrain_dirt_grass(spring)_128px_0
+      name: Forest_terrain_dirt_grass(spring)_Pixelated_128px_0
       rect:
         serializedVersion: 2
         x: 0
@@ -154,20 +124,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d91e4833d0190249a4cebbb7ef230a5
-      internalID: 21300000
+      spriteID: 118067dec2c8c31479c6bf9402a4253c
+      internalID: -1633438078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Forest_terrain_dirt_grass(spring)_128px_1
+      name: Forest_terrain_dirt_grass(spring)_Pixelated_128px_1
       rect:
         serializedVersion: 2
         x: 128
@@ -175,20 +145,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5e44553b718bd04eb720bc060b6327a
-      internalID: 21300002
+      spriteID: a122791781be9364986db01a2c0cb5f1
+      internalID: -419024499
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Forest_terrain_dirt_grass(spring)_128px_2
+      name: Forest_terrain_dirt_grass(spring)_Pixelated_128px_2
       rect:
         serializedVersion: 2
         x: 256
@@ -196,20 +166,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61f4f3a510255404fba282f5c8e14e40
-      internalID: 21300004
+      spriteID: f7a12b1b633203e4482d14ff52e9dc54
+      internalID: 1858234852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Forest_terrain_dirt_grass(spring)_128px_3
+      name: Forest_terrain_dirt_grass(spring)_Pixelated_128px_3
       rect:
         serializedVersion: 2
         x: 384
@@ -217,20 +187,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44579e762e95cce41a2b89e304676604
-      internalID: 21300006
+      spriteID: 168612b74371cc94baa949b8f2aa5798
+      internalID: -1787083527
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Forest_terrain_dirt_grass(spring)_128px_4
+      name: Forest_terrain_dirt_grass(spring)_Pixelated_128px_4
       rect:
         serializedVersion: 2
         x: 512
@@ -238,20 +208,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb67c022e5e664f459242ae29fc285b9
-      internalID: 21300008
+      spriteID: 92b9d8a07e593984f81a17b154c46ae1
+      internalID: 1125039428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Forest_terrain_dirt_grass(spring)_128px_5
+      name: Forest_terrain_dirt_grass(spring)_Pixelated_128px_5
       rect:
         serializedVersion: 2
         x: 640
@@ -259,14 +229,14 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e395831d164b62458b14804fee55fe2
-      internalID: 21300010
+      spriteID: b7d5d77d9c6d6f64fb3253527a3a12fb
+      internalID: -2061465750
       vertices: []
       indices: 
       edges: []
@@ -274,7 +244,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: c0ac35c9b551dfb49ba2b2e9b9034818
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -282,12 +252,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Forest_terrain_dirt_grass(spring)_128px_4: 21300008
-      Forest_terrain_dirt_grass(spring)_128px_2: 21300004
-      Forest_terrain_dirt_grass(spring)_128px_3: 21300006
-      Forest_terrain_dirt_grass(spring)_128px_1: 21300002
-      Forest_terrain_dirt_grass(spring)_128px_5: 21300010
-      Forest_terrain_dirt_grass(spring)_128px_0: 21300000
+      Forest_terrain_dirt_grass(spring)_Pixelated_128px_3: -1787083527
+      Forest_terrain_dirt_grass(spring)_Pixelated_128px_4: 1125039428
+      Forest_terrain_dirt_grass(spring)_Pixelated_128px_1: -419024499
+      Forest_terrain_dirt_grass(spring)_Pixelated_128px_0: -1633438078
+      Forest_terrain_dirt_grass(spring)_Pixelated_128px_5: -2061465750
+      Forest_terrain_dirt_grass(spring)_Pixelated_128px_2: 1858234852
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
