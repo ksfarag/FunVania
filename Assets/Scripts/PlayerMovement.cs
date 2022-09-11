@@ -6,16 +6,17 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector2 moveInput;
-    [SerializeField] 
+    [SerializeField]
     private float runSpeed = 1;
     [SerializeField]
     private float jumpDistance = 1;
     [SerializeField]
     private float climbSpeed = 1;
+    private Vector2 deathFly = new Vector2(10f, 10f);
     private float gravityScale;
     private Rigidbody2D rigidBody;
     private bool isTouchingGround;
-    private CapsuleCollider2D BodyColider;
+    private CapsuleCollider2D bodyColider;
     //private CircleCollider2D feetColider;
     private Animator animator;
     private bool isAlive = true;
@@ -23,24 +24,29 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!isAlive) 
-        {
-            //Do something
-        }
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         gravityScale = rigidBody.gravityScale;
-        BodyColider = GetComponent<CapsuleCollider2D>();
+        bodyColider = GetComponent<CapsuleCollider2D>();
         //feetColider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        isTouchingGround = BodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")) || BodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
-        animator.SetBool("isJumping", !isTouchingGround);
-        Run();
-        climbLadder();
+        if (bodyColider != null)
+        {
+            isTouchingGround = bodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")) || bodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
+        }
+
+        if (isAlive)
+        {
+            Run();
+            climbLadder();
+            Jump();
+        }
+
+        Die();
     }
 
     void OnMove(InputValue value)
@@ -50,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump(InputValue value) 
     {
-        if (BodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (bodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             rigidBody.velocity += new Vector2(0, jumpDistance);
         }
@@ -74,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void climbLadder()
     {
-        if (BodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        if (bodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, moveInput.y * climbSpeed);
             rigidBody.gravityScale = 0;
@@ -90,8 +96,29 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+    private void Jump()
+    {
+        animator.SetBool("isJumping", !isTouchingGround);
+    }
+
     private void Die()
     {
-        //TO DO
+        if ( isAlive && bodyColider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            isAlive = false;
+            animator.SetTrigger("Die");
+            rigidBody.velocity = deathFly;
+            StartCoroutine(DeathCoroutine());
+        }
+    }
+
+    IEnumerator DeathCoroutine()
+    {
+        yield return new WaitUntil(() => isTouchingGround);
+        rigidBody.bodyType = RigidbodyType2D.Static;
+        Destroy(bodyColider);
+        Destroy(GetComponent<CircleCollider2D>());
+        //Shake camera
+        //play death sound
     }
 }
