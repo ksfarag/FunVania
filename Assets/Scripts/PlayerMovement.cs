@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Vector2 moveInput;
+    private Vector2 horizontalMoveInput;
     [SerializeField]
     private float runSpeed = 1;
     [SerializeField]
@@ -16,8 +16,10 @@ public class PlayerMovement : MonoBehaviour
     private float gravityScale;
     private Rigidbody2D rigidBody;
     private bool isTouchingGround;
+    private bool isTouchingHazard;
+    private bool isTouchingLadder;
     private CapsuleCollider2D bodyColider;
-    //private CircleCollider2D feetColider;
+    private BoxCollider2D feetColider;
     private Animator animator;
     private bool isAlive = true;
 
@@ -28,15 +30,26 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         gravityScale = rigidBody.gravityScale;
         bodyColider = GetComponent<CapsuleCollider2D>();
-        //feetColider = GetComponent<CircleCollider2D>();
+        feetColider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (feetColider != null)
+        {
+            isTouchingGround = feetColider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        }
+
+
+        if (bodyColider != null && feetColider != null)
+        {
+            isTouchingHazard = bodyColider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")) || feetColider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards"));
+        }
+
         if (bodyColider != null)
         {
-            isTouchingGround = bodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")) || bodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
+            isTouchingLadder = bodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
         }
 
         if (isAlive)
@@ -51,20 +64,21 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMove(InputValue value)
     {
-        moveInput = value.Get<Vector2>();
+        horizontalMoveInput = value.Get<Vector2>();
     }
 
-    void OnJump(InputValue value) 
+    void OnJump(InputValue value)
     {
-        if (bodyColider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (isTouchingGround || isTouchingLadder)
         {
+            rigidBody.gravityScale = gravityScale;
             rigidBody.velocity += new Vector2(0, jumpDistance);
         }
     }
 
     private void Run() 
     {
-        rigidBody.velocity = new Vector2(moveInput.x * runSpeed, rigidBody.velocity.y);
+        rigidBody.velocity = new Vector2(horizontalMoveInput.x * runSpeed, rigidBody.velocity.y);
 
         // Flips the sprite according to movment direction
         if (rigidBody.velocity.x < 0)
@@ -78,15 +92,16 @@ public class PlayerMovement : MonoBehaviour
         bool isMoving = Mathf.Abs(rigidBody.velocity.x) > 0;
         animator.SetBool("isRunning", isMoving && isTouchingGround);
     }
+
     private void climbLadder()
     {
-        if (bodyColider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        if (isTouchingLadder)
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, moveInput.y * climbSpeed);
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, horizontalMoveInput.y * climbSpeed);
             rigidBody.gravityScale = 0;
             bool isClimbing = Mathf.Abs(rigidBody.velocity.y) > 0;
             animator.SetBool("isClimbing", isClimbing);
-            animator.SetBool("isIdleClimbing", !isTouchingGround && !isClimbing);
+            //animator.SetBool("isIdleClimbing", !isTouchingLadder && !isClimbing);
         }
         else
         {
@@ -98,12 +113,12 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Jump()
     {
-        animator.SetBool("isJumping", !isTouchingGround);
+        animator.SetBool("isJumping", !isTouchingGround && !isTouchingLadder);
     }
 
     private void Die()
     {
-        if ( isAlive && bodyColider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        if ( isAlive && isTouchingHazard)
         {
             isAlive = false;
             animator.SetTrigger("Die");
@@ -117,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitUntil(() => isTouchingGround);
         rigidBody.bodyType = RigidbodyType2D.Static;
         Destroy(bodyColider);
-        Destroy(GetComponent<CircleCollider2D>());
+        Destroy(feetColider);
         //Shake camera
         //play death sound
     }
