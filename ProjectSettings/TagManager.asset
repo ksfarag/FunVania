@@ -18,7 +18,7 @@ TagManager:
   - Bouncing
   - Enemies
   - Hazards
-  - 
+  - Bullet
   - 
   - 
   - 
@@ -61,4 +61,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 607966163
+    locked: 0
+  - name: Bullet
+    uniqueID: 319227485
     locked: 0
