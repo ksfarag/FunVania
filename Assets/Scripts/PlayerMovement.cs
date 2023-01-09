@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector2 horizontalMoveInput;
-    [SerializeField]
-    private float runSpeed = 1;
-    [SerializeField]
-    private float jumpDistance = 1;
-    [SerializeField]
-    private float climbSpeed = 1;
+    [SerializeField] private float runSpeed = 1;
+    [SerializeField] private float jumpDistance = 1;
+    [SerializeField] private float climbSpeed = 1;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject gun;
+
     private Vector2 deathFly = new Vector2(10f, 10f);
     private float gravityScale;
     private Rigidbody2D rigidBody;
@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
             Run();
             climbLadder();
             Jump();
+            Shoot();
         }
 
         Die();
@@ -74,6 +75,10 @@ public class PlayerMovement : MonoBehaviour
             rigidBody.gravityScale = gravityScale;
             rigidBody.velocity += new Vector2(0, jumpDistance);
         }
+    }
+    private void OnFire(InputValue value)
+    {
+        Instantiate(bullet, gun.transform.position, gun.transform.rotation).SetActive(true);
     }
 
     private void Run() 
@@ -114,6 +119,10 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         animator.SetBool("isJumping", !isTouchingGround && !isTouchingLadder);
+    }
+    private void Shoot()
+    {
+        // do something
     }
 
     private void Die()
