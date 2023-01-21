@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -119,6 +120,10 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         animator.SetBool("isJumping", !isTouchingGround && !isTouchingLadder);
+        if (rigidBody.velocity.y >=18)
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 18);
+        }
     }
     private void Shoot()
     {

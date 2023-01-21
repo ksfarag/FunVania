@@ -17,7 +17,14 @@ public class EnemyMovement : MonoBehaviour
         rigidBody.velocity = new Vector2(moveSpeed, 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    Vector3 scale = transform.localScale;
+    //    moveSpeed = -moveSpeed;
+    //    scale.x = -scale.x;
+    //    transform.localScale = scale;
+    //}
+    private void OnTriggerExit2D(Collider2D collision)
     {
         Vector3 scale = transform.localScale;
         moveSpeed = -moveSpeed;
