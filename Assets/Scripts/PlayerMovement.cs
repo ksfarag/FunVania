@@ -138,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger("Die");
             rigidBody.velocity = deathFly;
             StartCoroutine(DeathCoroutine());
+            FindObjectOfType<GameSession>().ManageDeath();
         }
     }
 
