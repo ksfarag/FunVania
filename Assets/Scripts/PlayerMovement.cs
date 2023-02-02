@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject gun;
 
+    private PlayerInputAction playerInputAction;
     private Vector2 deathFly = new Vector2(10f, 10f);
     private float gravityScale;
     private Rigidbody2D rigidBody;
@@ -32,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
         gravityScale = rigidBody.gravityScale;
         bodyColider = GetComponent<CapsuleCollider2D>();
         feetColider = GetComponent<BoxCollider2D>();
+        playerInputAction = new PlayerInputAction();
+        playerInputAction.Player.Enable();
+        playerInputAction.Player.Jump.performed += OnJump;
+        playerInputAction.Player.Fire.performed += Shoot;
     }
 
     // Update is called once per frame
@@ -58,32 +63,28 @@ public class PlayerMovement : MonoBehaviour
             Run();
             climbLadder();
             Jump();
-            Shoot();
         }
 
         Die();
     }
 
-    void OnMove(InputValue value)
-    {
-        horizontalMoveInput = value.Get<Vector2>();
-    }
+    
 
-    void OnJump(InputValue value)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (isTouchingGround || isTouchingLadder)
+        if (context.performed)
         {
-            rigidBody.gravityScale = gravityScale;
-            rigidBody.velocity += new Vector2(0, jumpDistance);
+            if (isTouchingGround || isTouchingLadder)
+            {
+                rigidBody.gravityScale = gravityScale;
+                rigidBody.velocity += new Vector2(0, jumpDistance);
+            }
         }
-    }
-    private void OnFire(InputValue value)
-    {
-        Instantiate(bullet, gun.transform.position, gun.transform.rotation).SetActive(true);
     }
 
     private void Run() 
     {
+        horizontalMoveInput= playerInputAction.Player.Move.ReadValue<Vector2>();
         rigidBody.velocity = new Vector2(horizontalMoveInput.x * runSpeed, rigidBody.velocity.y);
 
         // Flips the sprite according to movment direction
@@ -97,6 +98,15 @@ public class PlayerMovement : MonoBehaviour
         }
         bool isMoving = Mathf.Abs(rigidBody.velocity.x) > 0;
         animator.SetBool("isRunning", isMoving && isTouchingGround);
+    }
+
+    private void Shoot(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Instantiate(bullet, gun.transform.position, gun.transform.rotation).SetActive(true);
+
+        }
     }
 
     private void climbLadder()
@@ -117,17 +127,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-    private void Jump()
+    private void Jump() //Manages Jump animation
     {
         animator.SetBool("isJumping", !isTouchingGround && !isTouchingLadder);
         if (rigidBody.velocity.y >=18)
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, 18);
         }
-    }
-    private void Shoot()
-    {
-        // do something
     }
 
     private void Die()
