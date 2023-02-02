@@ -13,6 +13,11 @@ public class Portal : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1f);
         var currentScene = SceneManager.GetActiveScene().buildIndex;
+        FindObjectOfType<ScenePresist>().Reset();
+        if (currentScene + 1 == SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(0);
+        }
         SceneManager.LoadScene(currentScene + 1);
     }
 }
