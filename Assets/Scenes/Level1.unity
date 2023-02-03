@@ -13694,15 +13694,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1895321546994954259, guid: 9d8600034ce6420499d16273fef5a873, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.694311
+      value: -13.562466
       objectReference: {fileID: 0}
     - target: {fileID: 1895321546994954259, guid: 9d8600034ce6420499d16273fef5a873, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6706199
+      value: 1.238877
       objectReference: {fileID: 0}
     - target: {fileID: 1895321546994954476, guid: 9d8600034ce6420499d16273fef5a873, type: 3}
       propertyPath: orthographic size
-      value: 4
+      value: 4.8
       objectReference: {fileID: 0}
     - target: {fileID: 1895321547747685408, guid: 9d8600034ce6420499d16273fef5a873, type: 3}
       propertyPath: m_Follow
