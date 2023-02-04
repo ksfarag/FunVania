@@ -30,5 +30,9 @@ public class EnemyMovement : MonoBehaviour
         moveSpeed = -moveSpeed;
         scale.x = -scale.x;
         transform.localScale = scale;
+        if (collision.gameObject.tag == "Player")
+        {
+            moveSpeed = 0f;
+        }
     }
 }

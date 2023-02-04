@@ -104,8 +104,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            Instantiate(bullet, gun.transform.position, gun.transform.rotation).SetActive(true);
-
+            Instantiate(bullet, transform.position + new Vector3(0.3f,0,0), transform.rotation).SetActive(true);
         }
     }
 
@@ -143,17 +142,16 @@ public class PlayerMovement : MonoBehaviour
             isAlive = false;
             animator.SetTrigger("Die");
             rigidBody.velocity = deathFly;
+            rigidBody.bodyType = RigidbodyType2D.Static;
             StartCoroutine(DeathCoroutine());
-            FindObjectOfType<GameSession>().ManageDeath();
         }
     }
 
     IEnumerator DeathCoroutine()
     {
-        yield return new WaitUntil(() => isTouchingGround);
-        rigidBody.bodyType = RigidbodyType2D.Static;
-        Destroy(bodyColider);
-        Destroy(feetColider);
+        yield return new WaitForSecondsRealtime(1f);
+        Destroy(gameObject);
+        FindObjectOfType<GameSession>().ManageDeath();
         //Shake camera
         //play death sound
     }

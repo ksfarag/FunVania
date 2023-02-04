@@ -25,6 +25,7 @@ public class GameSession : MonoBehaviour
     }
     private void Start()
     {
+        Application.targetFrameRate = 60;
         lives.text=PlayerLives.ToString();
         score.text=Score.ToString();
     }

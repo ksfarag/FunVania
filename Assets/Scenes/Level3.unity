@@ -11224,15 +11224,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1895321546994954259, guid: 9d8600034ce6420499d16273fef5a873, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.673527
+      value: -17.482773
       objectReference: {fileID: 0}
     - target: {fileID: 1895321546994954259, guid: 9d8600034ce6420499d16273fef5a873, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.6969795
+      value: 6.699821
       objectReference: {fileID: 0}
     - target: {fileID: 1895321546994954476, guid: 9d8600034ce6420499d16273fef5a873, type: 3}
       propertyPath: orthographic size
-      value: 4
+      value: 4.8
       objectReference: {fileID: 0}
     - target: {fileID: 1895321547747685408, guid: 9d8600034ce6420499d16273fef5a873, type: 3}
       propertyPath: m_Follow

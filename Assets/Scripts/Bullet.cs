@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     
     void Start()
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 10f);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 2f);
         speed = player.localScale.x * speed;
     }
 
